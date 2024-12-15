@@ -1,0 +1,36 @@
+import re
+from collections import Counter
+
+def word_count(text):
+    """
+    Counts the frequency of each word in a given text (case insensitive), ignoring punctuation and common stop words.
+
+    Parameters:
+        text (str): A large block of text.
+
+    Returns:
+        dict: A dictionary where keys are words and values are their frequencies.
+    """
+    # Define common stop words to ignore
+    stop_words = {
+        "and", "the", "is", "in", "it", "of", "to", "a", "an", "for", "on", "with", "at", "by", "this", "that", "which", "or", "as", "be", "are", "was", "were", "will", "would", "can", "could", "should", "has", "have", "had", "not", "but", "from", "they", "their", "there", "if", "we", "you", "your", "i", "he", "she", "him", "her", "his", "them", "its", "my", "me", "our", "us" 
+    }
+
+    # Normalize text: convert to lowercase and remove punctuation
+    text = text.lower()
+    text = re.sub(r"[\W_]+", " ", text)  # Replace non-alphanumeric characters with spaces
+
+    # Tokenize the text into words
+    words = text.split()
+
+    # Remove stop words
+    filtered_words = [word for word in words if word not in stop_words]
+
+    # Count word frequencies
+    word_frequencies = Counter(filtered_words)
+
+    return dict(word_frequencies)
+
+# Example usage
+text_sample = "The quick brown fox jumps over the lazy dog. The dog was not amused by the fox."
+print(word_count(text_sample))
